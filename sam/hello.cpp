@@ -16,30 +16,12 @@
 // **********************************************************************************************************************
 // @HEADER
 
-//! \file GTestMain.cpp
-/// \brief Main function for all GoogleTest-driven tests within this library
-///
-/// Simply link this file with the test files you want to run. GTest will automatically find all the tests in the
-/// linked files and run them.
+#include <sam/hello.hpp>
 
-// External
-#include <gmock/gmock.h>  // for EXPECT_THAT, HasSubstr, etc
-#include <gtest/gtest.h>  // for TEST, ASSERT_NO_THROW, etc
-#include <mpi.h>       // for MPI_Comm, MPI_Finalize, etc
+namespace sam {
 
-// Trilinos
-#include <Kokkos_Core.hpp>  // for Kokkos::initialize, Kokkos::finalize
-
-int main(int argc, char** argv) {
-  // Initialize MPI and Kokkos
-  MPI_Init(&argc, &argv);
-  Kokkos::initialize(argc, argv);
-
-  testing::InitGoogleMock(&argc, argv);
-  int return_val = RUN_ALL_TESTS();
-
-  Kokkos::finalize();
-  MPI_Finalize();
-
-  return return_val;
+void hello_but_implemented_in_cpp() {
+  std::cout << "Hello!" << std::endl;
 }
+
+}  // namespace sam

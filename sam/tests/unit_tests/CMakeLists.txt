@@ -16,6 +16,17 @@
 # **********************************************************************************************************************
 # @HEADER
 
-target_sources(${PROJECT_NAME} PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
+tribits_add_executable_and_test(
+  UnitTestTest
+  SOURCES
+    UnitTestTest.cpp
+  NUM_MPI_PROCS 1-4
+)
+
+tribits_add_executable_and_test(
+  UnitTestTestNoMain
+  SOURCES
+    UnitTestTestNoMain.cpp
+    ${Sam_DEFAULT_UNIT_TEST_MAIN}
+  NUM_MPI_PROCS 1-4
 )

@@ -38,8 +38,8 @@ int main(int argc, char** argv) {
                  "or issues, please don't hesitate to make a GitHub issue or "
                  "pull request.\n"
                  "\n"
-                 "Best of luck.\n"
-                 "-Bryce Palmer\n"
+                 "Best of luck,\n"
+                 "Bryce Palmer\n"
               << std::endl;
   }
 

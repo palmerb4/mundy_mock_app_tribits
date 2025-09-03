@@ -16,6 +16,8 @@
 # **********************************************************************************************************************
 # @HEADER
 
-target_sources(${utest_ex_name} PRIVATE
-   ${CMAKE_CURRENT_SOURCE_DIR}/TestUnitTests.cpp
+tribits_add_executable(
+  ExampleApp
+  SOURCES
+    ExampleApp.cpp
 )

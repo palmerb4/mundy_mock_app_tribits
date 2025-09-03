@@ -1,0 +1,6 @@
+#ifndef SAM_CONFIG_HPP_
+#define SAM_CONFIG_HPP_
+
+// Declare special variables, especially those related to optional features, TPLs, and workarounds.
+
+#endif  // SAM_CONFIG_HPP_

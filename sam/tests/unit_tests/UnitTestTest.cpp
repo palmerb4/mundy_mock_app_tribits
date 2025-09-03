@@ -16,19 +16,37 @@
 // **********************************************************************************************************************
 // @HEADER
 
-// External
+//! \file UnitTestTest
+/// Validate that tests are actually running as expected.
+/// You may assume that simply because you ran
 #include <gmock/gmock.h>  // for EXPECT_THAT, HasSubstr, etc
 #include <gtest/gtest.h>  // for TEST, ASSERT_NO_THROW, etc
 
-// C++ core
-#include <stdexcept>  // for logic_error, invalid_argument, etc
+#include <Kokkos_Core.hpp>  // for Kokkos::initialize, Kokkos::finalize
+#include <iostream>
+#include <stk_util/parallel/Parallel.hpp>  // for stk::parallel_machine_init, stk::parallel_machine_finalize
 
-// Mundy
-#include <mundy_core/throw_assert.hpp>  // for MUNDY_THROW_ASSERT
+TEST(UnitTest, test) {
+  std::cout << "EXAMPLE TEST PASSED" << std::endl;
+  std::cout << "  If you every don't see this message. There's a problem." << std::endl;
+}
 
-TEST(ExampleTest, UseMundyThrowRequire) {
-  // This test will pass if the MUNDY_THROW_REQUIRE macro is working correctly, confirming that
-  // we have linked mundy correctly and that our tests are set up properly.
-  EXPECT_THROW(MUNDY_THROW_REQUIRE(false, std::logic_error, "Throwing error"),
-               std::logic_error);
+int main(int argc, char** argv) {
+  // Initialize MPI and Kokkos
+  // Note, we mitigate our interaction with MPI through STK's stk::ParallelMachine.
+  // If STK is MPI enabled, then we're MPI enabled. As such, Mundy doesn't directly depend on or interact with MPI.
+  // However, if tests are to be run in parallel, then TPL_ENABLE_MPI must be set to ON in the TriBITS configuration.
+
+  stk::parallel_machine_init(&argc, &argv);
+  Kokkos::initialize(argc, argv);
+
+  testing::InitGoogleMock(&argc, argv);
+  int return_val = RUN_ALL_TESTS();
+
+  std::cout << return_val << std::endl;
+
+  Kokkos::finalize();
+  stk::parallel_machine_finalize();
+
+  return return_val;
 }
